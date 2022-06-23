@@ -17,10 +17,10 @@ export default function Lesson({ title, slug, availableAt, type }: Props) {
 	});
 
 	return (
-		<a href="#">
+		<a href="#" className="group">
 			<span className="text-gray-300">{availableDateFormatted}</span>
 
-			<div className="border border-gray-500 rounded p-4 mt-2">
+			<div className="border border-gray-500 rounded p-4 mt-2 group-hover:border-green-500">
 				<header className="flex items-center justify-between">
 					{isLessonAvailable ? (
 						<span className="text-sm text-blue-500 font-medium flex items-center gap-2">
