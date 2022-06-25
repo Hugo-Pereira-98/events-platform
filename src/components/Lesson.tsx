@@ -7,7 +7,7 @@ import { Link, useParams } from 'react-router-dom';
 interface Props {
 	title: string;
 	slug: string;
-	availableAt: string;
+	availableAt?: string;
 	type: 'class' | 'live';
 }
 

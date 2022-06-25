@@ -1,7 +1,7 @@
-import { gql, useMutation, useQuery } from '@apollo/client';
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../components/Logo';
+import { useCreateSubscriberMutation, useGetLessonSlugQuery } from '../graphql/generated';
 
 export default function Subscribe() {
 	const navigate = useNavigate();
@@ -9,24 +9,14 @@ export default function Subscribe() {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 
-	const { data } = useQuery(gql`
-		query {
-			lessons(orderBy: availableAt_ASC, stage: PUBLISHED) {
-				slug
-			}
-		}
-	`);
+	const { data } = useGetLessonSlugQuery();
 
-	const [createSubscriber, { loading }] = useMutation(gql`
-		mutation CreateSubscriber($name: String!, $email: String!) {
-			createSubscriber(data: { name: $name, email: $email }) {
-				id
-			}
-		}
-	`);
+	const [createSubscriber, { loading }] = useCreateSubscriberMutation();
 
 	async function handleSubscribe(e: FormEvent) {
 		e.preventDefault();
+
+		if (!data) return;
 
 		await createSubscriber({
 			variables: {
