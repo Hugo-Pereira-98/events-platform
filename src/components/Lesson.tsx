@@ -14,7 +14,7 @@ interface Props {
 export default function Lesson({ title, slug, availableAt, type }: Props) {
 	const { slug: slugParam } = useParams();
 
-	const date = new Date(availableAt);
+	const date = new Date(availableAt as string);
 	const isLessonAvailable = isPast(date);
 	const availableDateFormatted = format(date, "EEEE' • 'd' de 'MMMM' • 'k'h'mm", {
 		locale: ptBR,
